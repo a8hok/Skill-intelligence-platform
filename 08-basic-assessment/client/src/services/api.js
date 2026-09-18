@@ -1,0 +1,4 @@
+const API='http://localhost:4000/api';
+const headers=()=>({ 'Content-Type':'application/json', ...(localStorage.getItem('token')?{Authorization:`Bearer ${localStorage.getItem('token')}`}:{}) });
+async function request(path,options={}){ const r=await fetch(`${API}${path}`,{...options,headers:{...headers(),...(options.headers||{})}}); const data=await r.json().catch(()=>({})); if(!r.ok)throw new Error(data.message||`Request failed ${r.status}`); return data; }
+export const api={ users:()=>request('/users'), generateUsers:()=>request('/users/generate',{method:'POST'}), selectUser:(id)=>request('/auth/select-user',{method:'POST',body:JSON.stringify({id})}), me:()=>request('/auth/me'), topics:()=>request('/topics'), startAssessment:(topic)=>request('/assessments',{method:'POST',body:JSON.stringify({topic})}), submitAssessment:(id,answers)=>request(`/assessments/${id}/submit`,{method:'POST',body:JSON.stringify({answers})}), };
