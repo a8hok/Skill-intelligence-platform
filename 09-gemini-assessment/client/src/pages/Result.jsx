@@ -1,0 +1,1 @@
+import {useLocation} from 'react-router-dom'; export default function Result(){const {state}=useLocation();return <main className="container"><section className="card"><span className="status">{state?.source}</span><h1>Assessment Result</h1><div className="metric">{state?.score}%</div><p>{state?.correct}/{state?.total} correct</p></section></main>}
