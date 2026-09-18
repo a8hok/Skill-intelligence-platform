@@ -1,0 +1,1 @@
+import {useParams} from 'react-router-dom'; export default function Topic(){const {topic}=useParams(); return <main className="container"><section className="card"><span className="status">Topic selected</span><h1>{decodeURIComponent(topic)}</h1><p>Next step: connect this topic to an assessment engine.</p></section></main>}
