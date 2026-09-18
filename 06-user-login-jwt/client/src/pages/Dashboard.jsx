@@ -1,0 +1,1 @@
+export default function Dashboard({user}){return <main className="container"><section className="card"><span className="status">Authenticated</span><h1>Welcome, {user?.name}</h1><p>Your JWT-backed learner session is active.</p></section></main>}
