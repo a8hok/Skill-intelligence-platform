@@ -1,0 +1,19 @@
+CREATE DATABASE IF NOT EXISTS skill_intelligence;
+USE skill_intelligence;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  external_uuid VARCHAR(100) NULL UNIQUE,
+  name VARCHAR(150) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  avatar_url TEXT, city VARCHAR(100), country VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS assessment_sessions (
+  id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, topic VARCHAR(100) NOT NULL, source VARCHAR(20) NOT NULL DEFAULT 'built-in', questions_json JSON NOT NULL, score DECIMAL(5,2) NULL, review_json JSON NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS learning_roadmaps (
+  id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, assessment_id INT NOT NULL, topic VARCHAR(100) NOT NULL, score DECIMAL(5,2) NOT NULL, weak_concepts_json JSON NOT NULL, items_json JSON NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(user_id) REFERENCES users(id), FOREIGN KEY(assessment_id) REFERENCES assessment_sessions(id)
+);
